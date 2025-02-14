@@ -32,14 +32,8 @@ Function onOpen($ws : 4D:C1709.WebSocketConnection; $info : Object)
 	var $client : Object
 	var $message : cs:C1710.MessagesEntity
 	var $data; $status : Object
-	//var $conversation : cs.ConversationEntity
-	//var $conversations : cs.ConversationSelection:=ds.Conversation.all()
 	var $messages : cs:C1710.MessagesSelection:=ds:C1482.Messages.all()  //.query("Sender = :1 and Receiver = :2";)
 	$ws.wss.handler.logFile("New client connected: "+This:C1470.name+" - "+This:C1470.address)
-	
-	//For each ($conversation; $conversations)
-	//$ws.send(JSON Stringify({conversation: $conversation.toObject(); convoMessages: $conversation.messages.toCollection()})+"\n")
-	//End for each 
 	//For each ($client; $ws.wss.connections)
 	//If ($client.id#$ws.id)
 	For each ($message; $messages)
@@ -89,6 +83,13 @@ Function onMessage($ws : Object; $info : Object)
 			: ($data.audio#"" && Not:C34(Undefined:C82($data.audio)))
 				TEXT TO BLOB:C554($data.audio; vxBlob; UTF8 C string:K22:15)
 				$message.Audio:=vxBlob
+			: (Not:C34(Undefined:C82($data.poll)))
+				If ($data.poll.selectedOptions.length#0)
+					$message:=This:C1470.onUpdatePoll($data.poll.pollID; $data.poll.selectedOptions)
+					return 
+				Else 
+					$message.Poll:=$data.poll
+				End if 
 		End case 
 		TRACE:C157
 		//case when sender and receiver do not exist
@@ -136,12 +137,20 @@ Function onMessage($ws : Object; $info : Object)
 		//one connection
 		If ($ws.wss.connections.length=1)
 			$status:=$message.save()
-			$formattedData:=This:C1470.formatData($message)
 		End if 
 		$formattedData:=This:C1470.formatData($message)
 		$client.send(JSON Stringify:C1217({sender: $message.Sender; receiver: $message.Receiver; \
-			conversation: $message.conversation.toObject(); content: $message.Content; image: $data.imageBase64; audio: $data.audioBase64; file: $data.fileBase64; dateStamp: String:C10($message.sentThe; ISO date GMT:K1:10; Time:C179($message.sentAt))})+"\n")
+			conversation: $message.conversation.toObject(); content: $message.Content; image: $data.imageBase64; audio: $data.audioBase64; file: $data.fileBase64; poll: $message.Poll; dateStamp: String:C10($message.sentThe; ISO date GMT:K1:10; Time:C179($message.sentAt))})+"\n")
 	End for each 
+	
+Function onUpdatePoll($pollID : Variant; $selectedOptions : Object) : cs:C1710.MessagesEntity
+	var $message : cs:C1710.MessagesEntity
+	$message:=ds:C1482.Messages.query("Poll.pollID = :1"; $pollId).first()
+	If ($message#Null:C1517)
+		$message.Poll.selectedOptions.push({sender: String:C10(This:C1470.address); selectedOptions: $selectedOptions})
+		$message.save()
+		return $message
+	End if 
 	
 	// Called when an error occured
 Function onError($ws : Object; $info : Object)
