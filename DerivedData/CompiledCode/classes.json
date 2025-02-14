@@ -1,0 +1,14 @@
+{
+	"myConnectionHandler": {
+		"functions": {
+			"onMessage": 2147483644
+		},
+		"constructorID": 2147483645
+	},
+	"myServerHandler": {
+		"functions": {
+			"onConnection": 2147483641
+		},
+		"constructorID": 2147483642
+	}
+}

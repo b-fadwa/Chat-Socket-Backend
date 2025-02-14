@@ -1,0 +1,106 @@
+{
+	"tables": {
+		"ConversationMember": {
+			"color": {
+				"red": 255,
+				"green": 255,
+				"blue": 255,
+				"alpha": 0
+			},
+			"coordinates": {
+				"left": 1076,
+				"top": 226,
+				"width": 259,
+				"height": 175.33203125
+			},
+			"displayable_fields_count": 6
+		},
+		"User": {
+			"color": {
+				"red": 255,
+				"green": 255,
+				"blue": 255,
+				"alpha": 0
+			},
+			"coordinates": {
+				"left": 570,
+				"top": 358,
+				"width": 193,
+				"height": 243.33203125
+			},
+			"displayable_fields_count": 9
+		},
+		"Conversation": {
+			"color": {
+				"red": 255,
+				"green": 255,
+				"blue": 255,
+				"alpha": 0
+			},
+			"coordinates": {
+				"left": 558,
+				"top": 16,
+				"width": 272,
+				"height": 222.33203125
+			},
+			"displayable_fields_count": 8
+		},
+		"Messages": {
+			"color": {
+				"red": 255,
+				"green": 255,
+				"blue": 255,
+				"alpha": 0
+			},
+			"coordinates": {
+				"left": 21,
+				"top": 35,
+				"width": 298,
+				"height": 374.33203125
+			},
+			"displayable_fields_count": 15
+		}
+	},
+	"relations": {
+		"9DB38738CB81354BACFDD5B67A8519A2": {
+			"color": {
+				"red": 240,
+				"green": 240,
+				"blue": 240,
+				"alpha": 0
+			}
+		},
+		"90C0D603C844F345BB6445B65CD8890A": {
+			"color": {
+				"red": 240,
+				"green": 240,
+				"blue": 240,
+				"alpha": 0
+			}
+		},
+		"0AE1D6A82989FA448392C2B5AFDAC05D": {
+			"color": {
+				"red": 240,
+				"green": 240,
+				"blue": 240,
+				"alpha": 0
+			}
+		},
+		"31D564F366D36A40BF4DEC044385E2B7": {
+			"color": {
+				"red": 240,
+				"green": 240,
+				"blue": 240,
+				"alpha": 0
+			}
+		},
+		"2618595C5E30104F9EC427535D9F2825": {
+			"color": {
+				"red": 240,
+				"green": 240,
+				"blue": 240,
+				"alpha": 0
+			}
+		}
+	}
+}

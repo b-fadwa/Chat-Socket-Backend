@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE base SYSTEM "http://www.4d.com/dtd/2007/base.dtd" >
+<base name="serverSocket" uuid="8CFF169456F4794495FFCFB6D24183C6" collation_locale="en">
+	<schema name="DEFAULT_SCHEMA"/>
+	<table name="Messages" uuid="B1295D639E2EAE49A666BC28952991C4" id="1">
+		<field name="ID" uuid="58413BD7794C474A9E3868FA40F2AF1E" type="4" unique="true" autosequence="true" not_null="true" id="1"/>
+		<field name="File" uuid="0B6985E9EEFA1D4482702C4A745B6DB3" type="18" id="2"/>
+		<field name="Content" uuid="735692D6959F9249BAF7AD16AC3AEB47" type="10" id="3"/>
+		<field name="Image" uuid="62613F38F391CF4AB7EABCC288DB0A7F" type="18" id="4"/>
+		<field name="Audio" uuid="268B9D502B8BBF46BA28431A13C08FF6" type="18" id="5"/>
+		<field name="Sender" uuid="959613E0FBF293478B5EF34159D4A30C" type="10" limiting_length="255" id="6"/>
+		<field name="Receiver" uuid="0F0DAEF5193C9646A2FD6B6D77226A1F" type="10" limiting_length="255" id="7">
+			<field_extra multi_line="false"/>
+		</field>
+		<field name="ReceiverAddr" uuid="B2C6B1AB718CAE41B8234329654A1079" type="10" limiting_length="255" id="8"/>
+		<field name="SenderAddr" uuid="C6AA98238EA74442AD0C4FBFC1C85397" type="10" limiting_length="255" id="9">
+			<field_extra multi_line="false"/>
+		</field>
+		<field name="sentAt" uuid="7E02355C99D12840A8A11BE4E04BC48A" type="9" id="10"/>
+		<field name="sentThe" uuid="664A964E2D3D32468A430B8E8254A394" type="8" id="11"/>
+		<field name="senderUser" uuid="7BAC2359D2D3BC4F89A25321E6F2A05E" type="4" autosequence="true" id="12"/>
+		<field name="receiverUser" uuid="56C4F6504C13854CAD8B6A4CBE2947BC" type="4" autosequence="true" id="13"/>
+		<field name="conversationID" uuid="05ECC82B1AC95940B27F518D942CE3AF" type="4" autosequence="true" id="14"/>
+		<primary_key field_name="ID" field_uuid="58413BD7794C474A9E3868FA40F2AF1E"/>
+	</table>
+	<table name="Conversation" uuid="1EF96EF76781C8409450D8B8AC8C95F8" id="2">
+		<field name="ID" uuid="2DE6536596CA91458943D26406347CCE" type="4" unique="true" autosequence="true" not_null="true" id="1"/>
+		<primary_key field_name="ID" field_uuid="2DE6536596CA91458943D26406347CCE"/>
+	</table>
+	<table name="User" uuid="916520F730A61245BF6D43DC50BA2717" id="3">
+		<field name="ID" uuid="14AAA0B7B9B0A348922CD616C5DFDDE9" type="4" unique="true" autosequence="true" not_null="true" id="1"/>
+		<field name="firstName" uuid="5F9B0E501969DA489D9DE2AB48E093DD" type="10" limiting_length="255" id="2"/>
+		<field name="lastName" uuid="39858A32CBDBFC4486358CCA732544AD" type="10" limiting_length="255" id="3"/>
+		<field name="avatar" uuid="FD762D87CD68CA428B073B6867F78859" type="12" id="4"/>
+		<field name="birthdate" uuid="4CE52FEB163FDF4C8FB1E12BD397F4DA" type="8" id="5"/>
+		<field name="socketAddress" uuid="BED373A059566346AFDEE2333E2241F0" type="10" limiting_length="255" id="6"/>
+		<field name="uniqueIP" uuid="9BDB0C4B7AA3F64CA131FE1CB49060F8" type="10" limiting_length="255" id="7"/>
+		<primary_key field_name="ID" field_uuid="14AAA0B7B9B0A348922CD616C5DFDDE9"/>
+	</table>
+	<table name="ConversationMember" uuid="4FD7E02A16DA2B4E99077C075A35F8AD" id="4">
+		<field name="ID" uuid="50BC6ED95AB4F346B2617D6FEBD72C5F" type="4" unique="true" autosequence="true" not_null="true" id="1"/>
+		<field name="UserID" uuid="D92DE248D9AB6C45888D9B627D48B9C1" type="4" id="2"/>
+		<field name="ConversationID" uuid="850003438A548B43B5B1859574CB628F" type="4" id="3"/>
+		<primary_key field_name="ID" field_uuid="50BC6ED95AB4F346B2617D6FEBD72C5F"/>
+	</table>
+	<relation uuid="2618595C5E30104F9EC427535D9F2825" name_Nto1="sender" name_1toN="sentMessages" state="1">
+		<related_field kind="source">
+			<field_ref uuid="7BAC2359D2D3BC4F89A25321E6F2A05E" name="senderUser">
+				<table_ref uuid="B1295D639E2EAE49A666BC28952991C4" name="Messages"/>
+			</field_ref>
+		</related_field>
+		<related_field kind="destination">
+			<field_ref uuid="14AAA0B7B9B0A348922CD616C5DFDDE9" name="ID">
+				<table_ref uuid="916520F730A61245BF6D43DC50BA2717" name="User"/>
+			</field_ref>
+		</related_field>
+	</relation>
+	<relation uuid="31D564F366D36A40BF4DEC044385E2B7" name_Nto1="receiver" name_1toN="receivedMessages" state="1">
+		<related_field kind="source">
+			<field_ref uuid="56C4F6504C13854CAD8B6A4CBE2947BC" name="receiverUser">
+				<table_ref uuid="B1295D639E2EAE49A666BC28952991C4" name="Messages"/>
+			</field_ref>
+		</related_field>
+		<related_field kind="destination">
+			<field_ref uuid="14AAA0B7B9B0A348922CD616C5DFDDE9" name="ID">
+				<table_ref uuid="916520F730A61245BF6D43DC50BA2717" name="User"/>
+			</field_ref>
+		</related_field>
+	</relation>
+	<relation uuid="0AE1D6A82989FA448392C2B5AFDAC05D" name_Nto1="user" name_1toN="conversationMembers" state="1">
+		<related_field kind="source">
+			<field_ref uuid="D92DE248D9AB6C45888D9B627D48B9C1" name="UserID">
+				<table_ref uuid="4FD7E02A16DA2B4E99077C075A35F8AD" name="ConversationMember"/>
+			</field_ref>
+		</related_field>
+		<related_field kind="destination">
+			<field_ref uuid="14AAA0B7B9B0A348922CD616C5DFDDE9" name="ID">
+				<table_ref uuid="916520F730A61245BF6D43DC50BA2717" name="User"/>
+			</field_ref>
+		</related_field>
+	</relation>
+	<relation uuid="90C0D603C844F345BB6445B65CD8890A" name_Nto1="conversation" name_1toN="conversationMembers" state="1">
+		<related_field kind="source">
+			<field_ref uuid="850003438A548B43B5B1859574CB628F" name="ConversationID">
+				<table_ref uuid="4FD7E02A16DA2B4E99077C075A35F8AD" name="ConversationMember"/>
+			</field_ref>
+		</related_field>
+		<related_field kind="destination">
+			<field_ref uuid="2DE6536596CA91458943D26406347CCE" name="ID">
+				<table_ref uuid="1EF96EF76781C8409450D8B8AC8C95F8" name="Conversation"/>
+			</field_ref>
+		</related_field>
+	</relation>
+	<relation uuid="9DB38738CB81354BACFDD5B67A8519A2" name_Nto1="conversation" name_1toN="messages" state="1">
+		<related_field kind="source">
+			<field_ref uuid="05ECC82B1AC95940B27F518D942CE3AF" name="conversationID">
+				<table_ref uuid="B1295D639E2EAE49A666BC28952991C4" name="Messages"/>
+			</field_ref>
+		</related_field>
+		<related_field kind="destination">
+			<field_ref uuid="2DE6536596CA91458943D26406347CCE" name="ID">
+				<table_ref uuid="1EF96EF76781C8409450D8B8AC8C95F8" name="Conversation"/>
+			</field_ref>
+		</related_field>
+	</relation>
+	<index kind="regular" unique_keys="true" uuid="01A358B6C9F226488CA45A96C16E9C4E" type="7">
+		<field_ref uuid="14AAA0B7B9B0A348922CD616C5DFDDE9" name="ID">
+			<table_ref uuid="916520F730A61245BF6D43DC50BA2717" name="User"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="40B2581B088A8C47A42A31A1BD9B49E7" type="1">
+		<field_ref uuid="56C4F6504C13854CAD8B6A4CBE2947BC" name="receiverUser">
+			<table_ref uuid="B1295D639E2EAE49A666BC28952991C4" name="Messages"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="50DAD0945128044CB7EB92CF96F22F05" type="1">
+		<field_ref uuid="7BAC2359D2D3BC4F89A25321E6F2A05E" name="senderUser">
+			<table_ref uuid="B1295D639E2EAE49A666BC28952991C4" name="Messages"/>
+		</field_ref>
+	</index>
+	<index kind="regular" unique_keys="true" uuid="615C279769660B408653DC5ED82F316D" type="7">
+		<field_ref uuid="58413BD7794C474A9E3868FA40F2AF1E" name="ID">
+			<table_ref uuid="B1295D639E2EAE49A666BC28952991C4" name="Messages"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="6B2E98CC957E7E4298976D71E7443CAB" type="7">
+		<field_ref uuid="D92DE248D9AB6C45888D9B627D48B9C1" name="UserID">
+			<table_ref uuid="4FD7E02A16DA2B4E99077C075A35F8AD" name="ConversationMember"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="745A03F44E147642B676B9AA2FB6921D" type="7">
+		<field_ref uuid="05ECC82B1AC95940B27F518D942CE3AF" name="conversationID">
+			<table_ref uuid="B1295D639E2EAE49A666BC28952991C4" name="Messages"/>
+		</field_ref>
+	</index>
+	<index kind="regular" uuid="8AD754DD8D13EF4E90651088DEBB56E5" type="7">
+		<field_ref uuid="850003438A548B43B5B1859574CB628F" name="ConversationID">
+			<table_ref uuid="4FD7E02A16DA2B4E99077C075A35F8AD" name="ConversationMember"/>
+		</field_ref>
+	</index>
+	<index kind="regular" unique_keys="true" uuid="B2BCDA0C93FED64F8270ED01F7CF0080" type="7">
+		<field_ref uuid="50BC6ED95AB4F346B2617D6FEBD72C5F" name="ID">
+			<table_ref uuid="4FD7E02A16DA2B4E99077C075A35F8AD" name="ConversationMember"/>
+		</field_ref>
+	</index>
+	<index kind="regular" unique_keys="true" uuid="C28ADACDEF5CE94BAA9256E7939F7EF1" type="7">
+		<field_ref uuid="2DE6536596CA91458943D26406347CCE" name="ID">
+			<table_ref uuid="1EF96EF76781C8409450D8B8AC8C95F8" name="Conversation"/>
+		</field_ref>
+	</index>
+	<base_extra>
+		<journal_file journal_file_enabled="true"/>
+	</base_extra>
+</base>
