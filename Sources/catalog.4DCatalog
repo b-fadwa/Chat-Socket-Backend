@@ -21,6 +21,7 @@
 		<field name="senderUser" uuid="7BAC2359D2D3BC4F89A25321E6F2A05E" type="4" autosequence="true" id="12"/>
 		<field name="receiverUser" uuid="56C4F6504C13854CAD8B6A4CBE2947BC" type="4" autosequence="true" id="13"/>
 		<field name="conversationID" uuid="05ECC82B1AC95940B27F518D942CE3AF" type="4" autosequence="true" id="14"/>
+		<field name="Poll" uuid="8BC26C9CC00C27438C8E006297D7FB47" type="21" blob_switch_size="2147483647" id="15"/>
 		<primary_key field_name="ID" field_uuid="58413BD7794C474A9E3868FA40F2AF1E"/>
 	</table>
 	<table name="Conversation" uuid="1EF96EF76781C8409450D8B8AC8C95F8" id="2">
