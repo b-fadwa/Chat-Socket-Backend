@@ -140,7 +140,7 @@ Function onMessage($ws : Object; $info : Object)
 		End if 
 		$formattedData:=This:C1470.formatData($message)
 		$client.send(JSON Stringify:C1217({sender: $message.Sender; receiver: $message.Receiver; \
-			conversation: $message.conversation.toObject(); content: $message.Content; image: $data.imageBase64; audio: $data.audioBase64; file: $data.fileBase64; poll: $message.Poll; dateStamp: String:C10($message.sentThe; ISO date GMT:K1:10; Time:C179($message.sentAt))})+"\n")
+			conversation: $message.conversation.toObject(); content: $message.Content; image: $formattedData.imageBase64; audio: $formattedData.audioBase64; file: $formattedData.fileBase64; poll: $message.Poll; dateStamp: String:C10($message.sentThe; ISO date GMT:K1:10; Time:C179($message.sentAt))})+"\n")
 	End for each 
 	
 Function onUpdatePoll($pollID : Variant; $selectedOptions : Object) : cs:C1710.MessagesEntity
