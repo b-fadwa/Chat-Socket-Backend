@@ -2,7 +2,6 @@ Class constructor($winRef : Integer)
 	
 	This:C1470.countClient:=0
 	This:C1470.winRef:=$winRef
-	//This.connection:=New object()
 	
 	/// Function called when the server starts
 Function onOpen($wss : Object; $param : Object)
@@ -13,11 +12,8 @@ Function onOpen($wss : Object; $param : Object)
 	
 Function onConnection($wss : Object; $param : Object) : Object
 	This:C1470.logFile("*** New connection request from: "+$param.request.remoteAddress)
-	//var $test:=$param.request.headers[Sec-WebSocket-Extensions]
-	//TRACE
-	//This.connection:=$wss
 	Use (Session:C1714.storage)
-		//ngrok case tempo fix
+		////ngrok case tempo fix
 		If (Not:C34(Undefined:C82(Session:C1714.storage.socketClients)) && (Session:C1714.storage.socketClients.find(Formula:C1597($1.value=$param.request.headers.Host))#Null:C1517) && (Position:C15("ngrok-free.app"; $param.request.headers.Host)>0))
 			$wss.handler.countClient+=1
 		End if 
@@ -31,7 +27,15 @@ Function onConnection($wss : Object; $param : Object) : Object
 			$wss.handler.countClient+=1
 		End if 
 	End use 
-	return cs:C1710.WSClientHandler.new($wss.handler.countClient; $param.request)
+	TRACE:C157
+	//If ((Session.storage.auth#Null) && (Session.storage.auth.id#Null))  //user connected
+	$connectedUser:=ds:C1482.User.login($param.request.query.userName; $wss.handler.countClient)
+	//$connectedUser:=ds.User.login($param.request.headers.Host; $wss.handler.countClient)//working with socket @
+	return cs:C1710.WSClientHandler.new($wss.handler.countClient; $param.request; $connectedUser)
+	//Else 
+	//ALERT("No one is connected")
+	//return cs.WSClientHandler.new($wss.handler.countClient; $param.request; Null)
+	//End if 
 	
 	/// Function called when the server closes
 Function onTerminate
