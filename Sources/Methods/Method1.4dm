@@ -9,7 +9,7 @@ If (Not:C34($webserver.isRunning))
 End if 
 
 // Class that defines the server behavior
-$handler:=cs:C1710.WSSHandler.new(1)
+$handler:=cs:C1710.WSSHandler.new()
 
 // Creation of the websocket server 
 CALL WORKER:C1389("WebSocketServer"; Formula:C1597(WebSocketServer:=4D:C1709.WebSocketServer.new($handler)))
