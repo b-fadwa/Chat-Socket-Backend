@@ -1,4 +1,4 @@
-Class constructor()
+singleton Class constructor()
 	
 	/// Function called when the server starts
 Function onOpen($wss : Object; $param : Object)
