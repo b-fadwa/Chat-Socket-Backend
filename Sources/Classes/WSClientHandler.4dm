@@ -215,4 +215,3 @@ Function onTerminate($ws : Object; $info : Object)
 	$currentUser:=This:C1470.currentUser
 	$currentUser.isActive:=False:C215
 	$currentUser.save()
-	
