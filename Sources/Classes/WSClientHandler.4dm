@@ -5,7 +5,7 @@ Class constructor($user : cs:C1710.UserEntity)
 	This:C1470.currentUser:=$user
 	
 	//will be used to format data
-Function formatData($message : cs:C1710.MessagesEntity) : Object
+Function formatData($message : cs:C1710.MessageEntity) : Object
 	var $formattedData : Object:=New object:C1471()
 	If (($message.audio#Null:C1517) && (BLOB size:C605($message.audio)>0))
 		$formattedData.audioBase64:=BLOB to text:C555($message.audio; Base64 encoding)
