@@ -1,5 +1,20 @@
 {
 	"tables": {
+		"Group": {
+			"color": {
+				"red": 255,
+				"green": 255,
+				"blue": 255,
+				"alpha": 0
+			},
+			"coordinates": {
+				"left": 980,
+				"top": 437,
+				"width": 120,
+				"height": 167.33203125
+			},
+			"displayable_fields_count": 6
+		},
 		"ConversationMember": {
 			"color": {
 				"red": 255,
@@ -23,8 +38,8 @@
 				"alpha": 0
 			},
 			"coordinates": {
-				"left": 570,
-				"top": 358,
+				"left": 610,
+				"top": 355,
 				"width": 193,
 				"height": 243.33203125
 			},
@@ -45,7 +60,7 @@
 			},
 			"displayable_fields_count": 8
 		},
-		"Messages": {
+		"Message": {
 			"color": {
 				"red": 255,
 				"green": 255,
@@ -53,15 +68,39 @@
 				"alpha": 0
 			},
 			"coordinates": {
-				"left": 21,
-				"top": 35,
-				"width": 298,
-				"height": 374.33203125
+				"left": 37,
+				"top": 58,
+				"width": 341,
+				"height": 456.33203125
 			},
-			"displayable_fields_count": 15
+			"displayable_fields_count": 19
 		}
 	},
 	"relations": {
+		"9F87380EA3C9274F8C25545A449BE510": {
+			"color": {
+				"red": 240,
+				"green": 240,
+				"blue": 240,
+				"alpha": 0
+			}
+		},
+		"0318846ED63F3D488953F8709AD8DDB6": {
+			"color": {
+				"red": 240,
+				"green": 240,
+				"blue": 240,
+				"alpha": 0
+			}
+		},
+		"E5ADE2EE69C9554FA6F0870606FB19E9": {
+			"color": {
+				"red": 240,
+				"green": 240,
+				"blue": 240,
+				"alpha": 0
+			}
+		},
 		"9DB38738CB81354BACFDD5B67A8519A2": {
 			"color": {
 				"red": 240,
