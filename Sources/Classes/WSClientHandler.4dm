@@ -128,7 +128,7 @@ Function onMessage($ws : Object; $info : Object)
 						$message.audio:=vxBlob
 					: (Not:C34(Undefined:C82($data.poll)))
 						If ($data.poll.selectedOptions.length#0)
-							$message:=This:C1470.onUpdatePoll($data.poll.pollID; $data.poll.selectedOptions)
+							$message:=This:C1470.onUpdatePoll($data.poll)
 							return 
 						Else 
 							$message.poll:=$data.poll
@@ -196,13 +196,16 @@ Function onMessage($ws : Object; $info : Object)
 	End for each 
 	
 	
-Function onUpdatePoll($pollID : Variant; $selectedOptions : Object) : cs:C1710.MessageEntity
+Function onUpdatePoll($poll : Object) : cs:C1710.MessageEntity
 	var $message : cs:C1710.MessageEntity
-	$message:=ds:C1482.Message.query("poll.pollID = :1"; $pollID).first()
-	If ($message#Null:C1517)
-		$message.poll.selectedOptions.push({sender: String:C10(This:C1470.currentUser.lastName); selectedOptions: $selectedOptions})
-		$message.save()
-		return $message
+	
+	If ($poll.action="add")
+		$message:=ds:C1482.Message.query("poll.pollID = :1"; $poll.pollID).first()
+		If ($message#Null:C1517 && Not:C34($message.poll.selectedOptions.includes($poll.selectedOptions)))
+			$message.poll.selectedOptions.push({sender: String:C10(This:C1470.currentUser.lastName); selectedOptions: $poll.selectedOptions})
+			$message.save()
+			return $message
+		End if 
 	End if 
 	
 	// Called when an error occured
